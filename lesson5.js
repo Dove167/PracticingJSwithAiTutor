@@ -12,6 +12,7 @@ let boxer = {
         wins: 8,
         losses: 2,
         knockouts: 3
+        //record is a key and the wins, losses and knockouts are the keys and values.
     },
     hobbies: ["boxing", "coding", "gaming", "reading"],
 
@@ -28,7 +29,7 @@ let boxer = {
     }
 };
 
-console.log("Boxer name:", boxer.name);
+console.log("Boxer name:", boxer["name"]); //dot notation is lcean and direct and bracket notation does the same result
 console.log("Boxing record:", boxer.getRecord());
 console.log("Win rate:", boxer.getWinRate());
 console.log("Favorite hobby:", boxer.hobbies[0]);
