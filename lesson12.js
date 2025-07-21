@@ -99,7 +99,7 @@ setTimeout(() => {
     const fs = require('fs').promises;
 
     //First, let's create a test file
-    const testData = "Apple" + os.EOL + "Banana" + os.EOL + "Cherry" + os.EOL + "Date" + "Eggplant";
+    const testData = "Apple" + os.EOL + "Banana" + os.EOL + "Cherry" + os.EOL + "Date" + os.EOL + "Eggplant";
     
     fs.writeFile('fruits.txt', testData)
         .then(() => {
