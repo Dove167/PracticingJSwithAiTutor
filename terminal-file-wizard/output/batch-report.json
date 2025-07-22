@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-07-22T02:26:34.616Z",
+  "directory": "./test-files",
+  "filesProcessed": 4,
+  "totalSize": 324,
+  "results": [
+    {
+      "file": "another.txt",
+      "size": 71,
+      "type": ".txt",
+      "processingTime": 48.4175
+    },
+    {
+      "file": "data.json",
+      "size": 103,
+      "type": ".json",
+      "processingTime": 28.612600000000008
+    },
+    {
+      "file": "sample.txt",
+      "size": 80,
+      "type": ".txt",
+      "processingTime": 59.4337
+    },
+    {
+      "file": "users.csv",
+      "size": 70,
+      "type": ".csv",
+      "processingTime": 13.857699999999994
+    }
+  ]
+}

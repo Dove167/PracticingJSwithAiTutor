@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-22T01:24:25.143Z",
+  "summary": {
+    "totalFiles": 4,
+    "totalSize": 324,
+    "totalSizeFormatted": "324 Bytes"
+  },
+  "fileTypes": {
+    ".txt": 2,
+    ".json": 1,
+    ".csv": 1
+  },
+  "largestFile": {
+    "name": "test-files\\data.json",
+    "size": 103
+  },
+  "oldestFile": {
+    "name": "test-files\\sample.txt",
+    "date": "2025-07-21T22:20:52.192Z"
+  },
+  "newestFile": {
+    "name": "test-files\\data.json",
+    "date": "2025-07-21T22:26:22.330Z"
+  }
+}
