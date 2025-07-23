@@ -184,7 +184,7 @@ function runDemo() {
 
 // Demo functions
 function demoVariables() {
-    console.log(os.EOL + 'variables Demo:');
+    console.log(os.EOL + 'Variables Demo:');
     console.log('let name = "JavaScript";');
     console.log('const year = 2024;');
     console.log('var isAwesome = true;');
@@ -227,7 +227,3 @@ function exitCLI() {
 
 // Start the CLI
 startCLI();
-
-
-
-
