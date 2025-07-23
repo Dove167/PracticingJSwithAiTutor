@@ -200,5 +200,34 @@ function demoFunctions() {
     promptUser();
 }
 
+function demoArraysObjects() {
+    console.log(os.EOL + 'Arrays & Objects Demo:');
+    const skills = ['JavaScript', 'Node.js', 'React'];
+    const developer = { name: 'Coder', level: 'Pro' };
+    console.log('Array:', skills);
+    console.log('Object:', developer);
+    promptUser();
+}
+
+function demoAsync() {
+    console.log(os.EOL + 'Async Demo:');
+    console.log('setTimeout(() => console.log("Async!"), 1000);');
+    setTimeout(() => {
+        console.log('Async operation completed!');
+        promptUser();
+    }, 1000);
+}
+
+// Exit CLI
+function exitCLI() {
+    console.log(os.EOL + 'Thanks for using JavaScript Learning Dashboard!');
+    rl.close();
+    process.exit(0);
+}
+
+// Start the CLI
+startCLI();
+
+
 
 
