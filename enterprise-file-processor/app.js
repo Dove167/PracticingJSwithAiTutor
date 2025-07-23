@@ -26,7 +26,7 @@ function createWelcomeMessage(username = 'Guest') {
 // ==========================================
 
 app.use(express.static('public'));
-app.use(expressEjsLayouts.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressLayouts);
 

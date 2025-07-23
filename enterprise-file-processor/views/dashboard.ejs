@@ -5,9 +5,40 @@
     </div>
 
     <div class="stats-grid">
-        <div class="stat-grid">
+        <div class="stat-card">
             <h3> System Features</h3>
             <pre><%= features %></pre>
         </div>
+
+        <div class="stat-card">
+            <h3> Tech Stack</h3>
+            <p><%= techStack %></p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Live Stats</h3>
+            <div id="live-stats">
+                <p>Server Status: <span class="status-running">RUNNING</span></p>
+                <p>Uptime: <span id="uptime">Loading...</span></p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <h3>JavaScript Pillars</h3>
+            <!-- ol>li*5 -->
+            <ol>
+                <li>Basic Synchronous</li>
+                <li>Array Processing</li>
+                <li>Promise Chain</li>
+                <li>File System</li>
+                <li>Functional Programming</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button onclick="refreshStats()" class="btn-primary">Refresh Stats</button>
+        <button onclick="testAPI()" class="btn-secondary">Test API</button>
     </div>
 </div>
+
