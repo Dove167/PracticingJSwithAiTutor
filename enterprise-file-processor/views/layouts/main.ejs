@@ -13,9 +13,15 @@
                     <h1> Enterprise System</h1>
                 </div>
                 <div class="nav-links">
-                    <a href="/">Dashboard</a>
-                    <a href="/upload">Upload</a>
-                    <a href="/api/system">API</a>
+                    <% if (locals.user) { %>
+                        <a href="/">Dashboard</a>
+                        <a href="/upload">Upload</a>
+                        <a href="/api/system">API</a>
+                        <a href="/logout">Logout</a>
+                    <% } else { %>
+                        <a href="/login">Login</a>
+                        <a href="/register">Register</a>
+                    <% } %>
                 </div>
             </nav>
         </header>
@@ -28,7 +34,9 @@
             <p>&copy; 2025 Enterprise File Processor - Built with JavaScript Pillars</p>
         </footer>
 
-        <script src="/js/dashboard.js"></script>
+        <% if (locals.user) { %>
+            <script src="/js/dashboard.js"></script>
+        <% } %>
     </body>
 </html>
 

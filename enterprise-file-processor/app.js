@@ -3,11 +3,17 @@
 // Showcasing 10 JavaScript Pillars
 // ==========================================
 
+require('dotenv').config({ path: '.env.local' });
 const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const os = require('os');
-
+// Authentication & Convex setup
+const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const { ConvexHttpClient } = require('convex/browser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,14 +27,41 @@ function createWelcomeMessage(username = 'Guest') {
     return `Welcome ${username}! Server started at ${timestamp}`;
 }
 
-// ==========================================
-// MIDDLEWARE SETUP
-// ==========================================
+// Cookie parsing and session setup
+app.use(cookieParser());
+app.use(session({
+  store: new SQLiteStore({ db: 'sessions.sqlite' }),
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
+// Initialize Convex client
+const convex = new ConvexHttpClient(process.env.CONVEX_URL);
 
+// Expose session user to views
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
+
+// MIDDLEWARE SETUP - ensure body parsing before routes
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressLayouts);
+
+// Mount authentication routes
+const authModule = require('./routes/auth');
+const { requireAuth } = authModule;
+app.use(authModule);
+// ==========================================
+// MIDDLEWARE SETUP
+// ==========================================
 
 // View engine setup
 app.set('view engine', 'ejs');
@@ -57,7 +90,7 @@ const systemStats = {
 // ==========================================
 
 // Home route
-app.get('/', (req, res) => {
+app.get('/', requireAuth, (req, res) => {
     const welcomeMsg = createWelcomeMessage('Josh');
 
     res.render('dashboard', {
@@ -69,14 +102,32 @@ app.get('/', (req, res) => {
     });
 });
 
-// API route for system info
+// ✅ FIXED API ROUTES
 app.get('/api/system', (req, res) => {
     res.json({
-        status: 'running',
         uptime: process.uptime(),
         features: systemStats.features,
         technologies: systemStats.technologies,
+        timestamp: new Date().toISOString(),
+        status: 'running'
+    });
+});
+
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'healthy',
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
         timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/stats', (req, res) => {
+    res.json({
+        requests: Math.floor(Math.random() * 1000),
+        activeUsers: Math.floor(Math.random() * 50),
+        responseTime: Math.floor(Math.random() * 100),
+        timestamp: new Date().toISOString() 
     });
 });
 
@@ -85,7 +136,7 @@ app.get('/api/system', (req, res) => {
 // ==========================================
 
 app.listen(PORT, () => {
-    console.log('ENTERPRISE FILE PROCESSOR STARTED!');
+    console.log('🚀 ENTERPRISE FILE PROCESSOR STARTED!');
     console.log('=======================================');
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`Features: ${systemStats.features.length} modules loaded`);
@@ -94,4 +145,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-

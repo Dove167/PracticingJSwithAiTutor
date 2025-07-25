@@ -6,7 +6,7 @@
 // ==========================================
 // PILLAR 1: BASIC SYNCHRONOUS OPERATIONS
 // ==========================================
-const os = require('os');
+const EOL = '\n';
 
 class DashboardManager {
     constructor() {
@@ -35,6 +35,37 @@ class DashboardManager {
             .filter(([key, value]) => typeof value === 'number')
             .map(([key, value]) => ({ name: key, value: value.toFixed(2) }));
         return stats;
+    }
+
+    startLiveUpdates() {
+        // Update every 30 seconds
+        this.refreshInterval = setInterval(() => {
+            refreshStats();
+
+            // Show random notification
+            const message = notificationIterator.next().value;
+            showNotification(message, 'info');
+        }, 30000);
+    }
+
+    bindEvents() {
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+
+            if (target.matches('.btn-primary')) {
+                handlePrimaryAction(target);
+            }
+
+            if (target.matches('.btn-secondary')) {
+                handleSecondaryAction(target);
+            }
+
+            if (target.matches('.stat-card')) {
+                animateCard(target);
+            }
+        });
+
+        
     }
 }
 
@@ -368,7 +399,7 @@ function startLiveUpdates() {
         refreshStats();
 
         // Show random notification
-        const message = notificaitonIterator.next().value;
+        const message = notificationIterator.next().value;
         showNotification(message, 'info');
     }, 30000);
 }
@@ -394,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Export for module systems
-if (typeofmodule !== 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         DashboardManager,
         refreshStats,

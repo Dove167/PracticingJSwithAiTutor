@@ -1,4 +1,10 @@
 <div class="dashboard">
+    <% if (locals.user) { %>
+      <div class="user-section">
+        <span>Welcome, <%= user.name %></span>
+        <a href="/logout" class="btn btn-secondary">Logout</a>
+      </div>
+    <% } %>
     <div class="hero-section">
         <h2>JavaScript Mastery Dashboard</h2>
         <p class="welcome-msg"><%= welcome %></p>
