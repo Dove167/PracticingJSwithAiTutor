@@ -105,6 +105,33 @@ console.log('Hello from ${filename}!');
     });
 }
 
+function webStatus() {
+    const http = require('http');
+    const options = {
+        hostname: 'localhost',
+        port: 3000,
+        path: '/api/system',
+        method: 'GET'
+    };
+
+    const req = http.request(options, (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+            console.log('Web Dashboard Status:', JSON.parse(data));
+            promptUser();
+        });
+    });
+
+    req.on('error', () => {
+        console.log('Web dashboard is offline');
+        promptUser();
+    });
+
+    req.end();
+}
+
+commands['web'] = webStatus;
 
 // Read contents of a file
 function readFile(args) {

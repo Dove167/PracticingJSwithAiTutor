@@ -1,0 +1,11 @@
+<div class="upload-container">
+    <h2>File Upload</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Choose File:</label>
+            <input type="file" id="file" name="file" required>
+        </div>
+        <button type="submit" class="btn-primary">Upload File</button>
+    </form>
+    <div id="upload-result"></div>
+</div>
